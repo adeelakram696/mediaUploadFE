@@ -33,7 +33,7 @@ const MediaPage = () => {
     formData.append('file', file);
     formData.append('tags', values.tags);
     formData.append('filetype', file.type);
-    const resultAction = dispatch(mediaUpload(formData));
+    const resultAction = await dispatch(mediaUpload(formData));
     if (mediaUpload.fulfilled.match(resultAction)) {
       dispatch(mediaThunk());
       form.resetFields();
