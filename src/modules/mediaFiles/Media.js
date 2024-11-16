@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Form, Input, Upload, List, Tag, Flex } from 'antd';
+import { Button, Form, Input, Upload, List, Tag, Flex, Spin } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { updateMediaOrder } from './ducks/slice';
@@ -15,7 +15,7 @@ const MediaPage = () => {
   const [fileList, setFileList] = useState([]);
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [form] = Form.useForm(); 
-  const { mediaList, error } = useSelector((state) => state.media);
+  const { mediaList, error, loading } = useSelector((state) => state.media);
 
   useEffect(() => {
     dispatch(mediaThunk());
@@ -61,6 +61,7 @@ const MediaPage = () => {
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '20px' }}>
       <h2>Media Management</h2>
+      {loading && <Spin spinning={true} fullscreen /> }
       <Flex>
         <Button type="link" htmlType="button" onClick={handleLogout}>
             logout
